@@ -1,0 +1,114 @@
+{
+    "items": [
+        { 
+            "id": 0, 
+            "text": "What is the capital of Finland?",
+            "answer": 2,
+            "choices": [
+                { "id": 0, "text": "Reykjavik" },
+                { "id": 1, "text": "Bangkok" },
+                { "id": 2, "text": "Helsinki" },
+                { "id": 3, "text": "Paris" }
+            ]
+        },
+        { 
+            "id": 1, 
+            "text": "What is the chemical formula of table salt?",
+            "answer": 1,
+            "choices": [
+                { "id": 0, "text": "Sodium Hydroxide" },
+                { "id": 1, "text": "Sodium Chloride" },
+                { "id": 2, "text": "Potassium Chloride" },
+                { "id": 3, "text": "Potassium Nitrate" }
+            ]
+        },
+        { 
+            "id": 2, 
+            "text": "In what country can you find Waterloo?",
+            "answer": 1,
+            "choices": [
+                { "id": 0, "text": "France" },
+                { "id": 1, "text": "Belgium" },
+                { "id": 2, "text": "Denmark" },
+                { "id": 3, "text": "Germany" }
+            ]
+        },
+        { 
+            "id": 3, 
+            "text": "Who assassinated US President Abraham Lincoln?",
+            "answer": 3,
+            "choices": [
+                { "id": 0, "text": "Alexander Hamilton" },
+                { "id": 1, "text": "Harvey Oswald" },
+                { "id": 2, "text": "Jack Ruby" },
+                { "id": 3, "text": "John Wilkes Booth" }
+            ]
+        },
+        { 
+            "id": 4, 
+            "text": "Who is the last emperor of China?",
+            "answer": 1,
+            "choices": [
+                { "id": 0, "text": "Bao Dai" },
+                { "id": 1, "text": "Puyi" },
+                { "id": 2, "text": "Koxinga" },
+                { "id": 3, "text": "Sun Tzu" }
+            ]
+        },
+        { 
+            "id": 5, 
+            "text": "What is the color of chlorine gas at room temperature?",
+            "answer": 0,
+            "choices": [
+                { "id": 0, "text": "yellow green" },
+                { "id": 1, "text": "aquablue" },
+                { "id": 2, "text": "skyblue" },
+                { "id": 3, "text": "deep purple" }
+            ]
+        },
+        { 
+            "id": 6, 
+            "text": "What is the national fruit of Jamaica?",
+            "answer": 3,
+            "choices": [
+                { "id": 0, "text": "chapotes" },
+                { "id": 1, "text": "banana" },
+                { "id": 2, "text": "guava" },
+                { "id": 3, "text": "ackee" }
+            ]
+        },
+        { 
+            "id": 7, 
+            "text": "Where can you find orangutan?",
+            "answer": 0,
+            "choices": [
+                { "id": 0, "text": "Sumatra" },
+                { "id": 1, "text": "Madagascar" },
+                { "id": 2, "text": "Andaman" },
+                { "id": 3, "text": "Nicobar" }
+            ]
+        },
+        { 
+            "id": 8, 
+            "text": "Who discovered bacteria?",
+            "answer": 1,
+            "choices": [
+                { "id": 0, "text": "Isaac Newton" },
+                { "id": 1, "text": "Antoni van Leeuwenhoek" },
+                { "id": 2, "text": "Louis Vuitton" },
+                { "id": 3, "text": "Louis Pasteur" }
+            ]
+        },
+        { 
+            "id": 9, 
+            "text": "After crossing this river, Julius Caesar precipitated a civil war that catalputed him to power as the dictator of the Roman Empire. What is the name of this river?",
+            "answer": 2,
+            "choices": [
+                { "id": 0, "text": "Rhine" },
+                { "id": 1, "text": "Danube" },
+                { "id": 2, "text": "Rubicon" },
+                { "id": 3, "text": "Nile" }
+            ]
+        }
+    ]
+}
