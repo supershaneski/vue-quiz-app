@@ -16,8 +16,8 @@ Browsing through [my old Vue projects from 2 years ago](https://github.com/super
 
 I will be using the following modules:
 
-* [Pinia](https://pinia.vuejs.org/introduction.html), for global app state management
-* [Vue Router](https://router.vuejs.org/installation.html), for router
+* [Pinia 2](https://pinia.vuejs.org/introduction.html), for global app state management
+* [Vue Router 4](https://router.vuejs.org/installation.html), for router
 
 At this point, I have not made my mind yet on how to best implement a quiz app.
 Perhaps a simple SPA would suffice and there is no need for a router.
