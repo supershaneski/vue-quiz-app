@@ -2,7 +2,7 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
 import quizData from '../assets/questions.json'
-import { shuffle } from '../lib/utils'
+import { shuffle, getToday } from '../lib/utils'
 
 export const useCounterStore = defineStore("counter", () => {
   
@@ -10,10 +10,16 @@ export const useCounterStore = defineStore("counter", () => {
   let defQuestionIndex = -1
   let defScore = 0
 
+  let refDate = ''
+  let defQuestions = ''
+
   const savedData = localStorage.getItem("vue-app")
   if(savedData) {
 
     const rawData = JSON.parse(savedData)
+
+    refDate = rawData.hasOwnProperty('date') ? rawData.date : ''
+    defQuestions = rawData.hasOwnProperty('questions') ? rawData.questions : ''
     
     defCount = rawData.hasOwnProperty('count') ? parseInt(rawData.count) : defCount
     defQuestionIndex = rawData.hasOwnProperty('questionIndex') ? parseInt(rawData.questionIndex) : defQuestionIndex
@@ -22,26 +28,54 @@ export const useCounterStore = defineStore("counter", () => {
   }
 
   let questionItems = quizData.items
-  shuffle(questionItems)
 
-  questionItems = questionItems.filter((qi, i) => i < 10).map((qi, i) => {
+  const today = getToday()
 
-    let answers = [...qi.choices]
-    shuffle(answers)
+  if(refDate.length === 0 || defQuestions.length === 0 || (refDate.length > 0 && today > refDate)) {
 
-    return {
-      ...qi,
-      choices: answers,
-      index: i,
-    }
-  })
+    shuffle(questionItems)
 
+    questionItems = questionItems.filter((qi, i) => i < 10).map((qi, i) => {
+
+      let answers = [...qi.choices]
+      shuffle(answers)
+
+      return {
+        ...qi,
+        choices: answers,
+        index: i,
+      }
+    })
+
+    defQuestions = questionItems.reduce((d, curvalue) => {
+      return d.length > 0 ? [d, curvalue.id].join(',') : String(curvalue.id)
+    }, "")
+
+  } else {
+
+    const listQuestions = defQuestions.split(",")
+
+    questionItems = questionItems.filter(qi => listQuestions.some(lq => qi.id === parseInt(lq))).map((qi, i) => {
+
+      let answers = [...qi.choices]
+      shuffle(answers)
+
+      return {
+        ...qi,
+        choices: answers,
+        index: i,
+      }
+    })
+
+  }
+  
   const count = ref(defCount);
   const questions = ref(questionItems)
   const questionIndex = ref(defQuestionIndex)
   const questionCount = ref(questionItems.length)
   const score = ref(defScore)
   const endGame = ref(false)
+  const questionList = ref(defQuestions)
 
   const doubleCount = computed(() => count.value * 2);
 
@@ -50,8 +84,10 @@ export const useCounterStore = defineStore("counter", () => {
     questionIndex.value = -1
     score.value = 0
     endGame.value = false
+
+    const today = getToday()
     
-    localStorage.setItem("vue-app", JSON.stringify({ score: 0, count: count.value, questionIndex: -1 }))
+    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: 0, count: count.value, questionIndex: -1 }))
 
   }
 
@@ -59,7 +95,9 @@ export const useCounterStore = defineStore("counter", () => {
 
     questionIndex.value = -1
 
-    localStorage.setItem("vue-app", JSON.stringify({ score: score.value, count: count.value, questionIndex: -1 }))
+    const today = getToday()
+
+    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: -1 }))
 
   }
 
@@ -72,7 +110,9 @@ export const useCounterStore = defineStore("counter", () => {
 
     questionIndex.value = n
 
-    localStorage.setItem("vue-app", JSON.stringify({ score: score.value, count: count.value, questionIndex: n }))
+    const today = getToday()
+
+    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: n }))
 
   }
 
@@ -86,7 +126,9 @@ export const useCounterStore = defineStore("counter", () => {
     
     count.value++;
 
-    localStorage.setItem("vue-app", JSON.stringify({ score: score.value, count: count.value, questionIndex: questionIndex.value }))
+    const today = getToday()
+
+    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: questionIndex.value }))
 
   }
 
@@ -98,7 +140,9 @@ export const useCounterStore = defineStore("counter", () => {
     
     score.value++;
 
-    localStorage.setItem("vue-app", JSON.stringify({ score: score.value, count: count.value, questionIndex: questionIndex.value }))
+    const today = getToday()
+
+    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: questionIndex.value }))
 
   }
 

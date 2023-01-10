@@ -44,11 +44,11 @@ export default {
       if(this.score === 0) {
         return "Tough Luck!"
       } else if(this.score > 0 && this.score < 5) {
-        return "Nice Score!"
+        return "You Can Do Better!"
       } else if(this.score === 10) {
         return "Perfect Score!"
       } else {
-        return "Congratulation!"
+        return "Nice Score!"
       }
 
     }

@@ -11,3 +11,7 @@ export function shuffle(a) {
     }
     return a;
 }
+
+export function getToday() {
+    return ((new Date()).toISOString()).split('T')[0]
+}
