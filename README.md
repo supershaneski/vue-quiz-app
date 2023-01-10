@@ -30,13 +30,15 @@ But since this is more of a refresher for `Vue`, using as many standard modules 
 
 > This is a work in progress...
 
+
 You can edit the questions found in `/assets/questions.json` for your own quiz data.
 Although you can add as many questions in the file, only 10 questions are shown each time.
 
 Currently, the questions are `shuffled` when the app is loaded and the store initialized.
 I am thinking of only doing this process once per day just like how `Wordle` only use one specific word per day.
-To do this, I will need to store the id of `shuffled` questions and `current date` in `localStorage`.
-Every time the page is loaded, I will check this info is there is a need to reshuffle the questions or not.
+To do this, I will need to store the `id` of `shuffled questions` and `current date` in `localStorage`.
+Every time the page is loaded, I will then check this info is there is a need to reshuffle the questions or not.
+
 
 # Setup
 
