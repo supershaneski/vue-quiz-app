@@ -1,6 +1,6 @@
 # vue-quiz-app
 
-This is a sample quiz app built using [Vue 3](https://vuejs.org/guide/introduction.html) in [Vite](https://vitejs.dev/guide/).
+This is a sample quiz application built using [Vue 3](https://vuejs.org/guide/introduction.html) in [Vite](https://vitejs.dev/guide/). It mainly uses `Composition API` to implement `route views` and `components`.
 
 
 # Objective
@@ -23,6 +23,7 @@ At this point, I have not made my mind yet on how to best implement a quiz app.
 Perhaps a simple SPA would suffice and there is no need for a router.
 But since this is more of a refresher for `Vue`, using as many standard modules is probably better for practice.
 
+I mainly reused the generated code, files and styling from the build setup using `Vite` such that my `Pinia` store is still named as `counter.js`.
 
 ## The App
 
