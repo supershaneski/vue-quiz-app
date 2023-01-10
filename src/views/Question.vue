@@ -1,139 +1,121 @@
 <script setup>
+import { ref, watch, computed } from "vue";
+import { useRoute, useRouter } from "vue-router"
 import { useCounterStore } from "../stores/counter";
-</script>
-
-<script>
 import ListItem from '../components/ListItem.vue';
 
-export default {
-    components: {
-        ListItem,
-    },  
-    data() {
+const store = useCounterStore()
+const router = useRouter()
+const route = useRoute()
 
-        const store = useCounterStore()
+const index = parseInt(route.params.id)
+        
+let errFlag = false;
+let errSite = false;
 
-        const index = parseInt(this.$route.params.id)
-        
-        let errFlag = false;
-        let errSite = false;
-        
-        const endFlag = store.endGame
-        if(endFlag) {
+const endFlag = store.endGame
+if(endFlag) {
+    errSite = true
+} else {
+
+    if(isNaN(index)) {
+        errFlag = true
+    } else {
+
+        if(index < 0 || index >= store.questionCount) {
+            errFlag = true
+        } else if(index !== store.questionIndex) {
             errSite = true
-        } else {
-
-            if(isNaN(index)) {
-                errFlag = true
-            } else {
-
-                if(index < 0 || index >= store.questionCount) {
-                    errFlag = true
-                } else if(index !== store.questionIndex) {
-                    errSite = true
-                }
-            }
-
-        }
-
-        if(errFlag) {
-            this.$router.push('/notfound')
-        } else if(errSite) {
-            this.$router.push('/error')
-        }
-
-        const isLastQuestion = index === store.questionCount - 1
-
-        const questionData = store.getQuestion(index)
-
-        return {
-            store: store,
-            question: errFlag || errSite ? null : questionData,
-            isLastQuestion: errFlag || errSite ? false : isLastQuestion,
-            selected: null,
-            isSubmitted: false,
-        }
-    },
-    watch: {
-        $route({ path }) {
-
-            if(path.indexOf("/question") < 0) return
-
-            const index = parseInt(this.$route.params.id)
-            
-            let errFlag = false;
-            let errSite = false;
-
-            if(isNaN(index)) {
-                errFlag = true
-            } else {
-
-                if(index < 0 || index >= this.store.questionCount) {
-                    errFlag = true
-                } else if(index !== this.store.questionIndex) {
-                    errSite = true
-                }
-            }
-
-            if(errFlag) {
-                this.$router.push('/notfound');
-            } else if(errSite) {
-                this.$router.push('/error');
-            }
-
-            const questionData = this.store.getQuestion(index)
-
-            const isLastQuestion = index === this.store.questionCount - 1
-
-            this.selected = null
-            this.isSubmitted = false
-
-            this.question = questionData
-
-            this.isLastQuestion = isLastQuestion
-
-        }
-    },
-    methods: {
-        gotoNextQuestion() {
-            
-            const nextid = parseInt(this.$route.params.id) + 1
-            this.store.setQuestionIndex(nextid)
-            this.$router.push(`/question/${nextid}`)
-        },
-        gotoScore() {
-
-            this.store.setEndGame()
-
-            this.$router.push('/score')
-        },
-        quitQuiz() {
-
-            this.store.resetQuiz()
-
-            this.$router.push('/')
-
-        },
-        selectAnswer(n) {
-            this.selected = n
-        },
-        submitAnswer() {
-
-            if(this.selected === null) return
-
-            if(this.selected === this.question.answer) {
-                this.store.incrementScore()
-            }
-
-            this.isSubmitted = !this.isSubmitted
-        }
-    },
-    computed: {
-        questionNumber() {
-            return [parseInt(this.$route.params.id) + 1, this.store.questionCount].join(' of ')
         }
     }
+
 }
+
+if(errFlag) {
+    router.push('/notfound')
+} else if(errSite) {
+    router.push('/error')
+}
+
+const question = ref(errFlag || errSite ? null : store.getQuestion(index))
+const isLastQuestion = ref(errFlag || errSite ? false : index === store.questionCount - 1)
+const selected = ref(null)
+const isSubmitted = ref(false)
+
+function gotoNextQuestion() {
+            
+    const nextid = parseInt(route.params.id) + 1
+    store.setQuestionIndex(nextid)
+    router.push(`/question/${nextid}`)
+
+}
+
+function gotoScore() {
+
+    store.setEndGame()
+    router.push('/score')
+
+}
+
+function quitQuiz() {
+
+    store.resetQuiz()
+    router.push('/')
+
+}
+
+function selectAnswer(n) {
+    selected.value = n
+}
+
+function submitAnswer() {
+
+    if(selected.value === null) return
+
+    if(selected.value === question.value.answer) {
+        store.incrementScore()
+    }
+
+    isSubmitted.value = !isSubmitted.value
+
+}
+
+const questionNumber = computed(() => {
+    return [parseInt(route.params.id) + 1, store.questionCount].join(' of ')
+})
+
+watch(() => route.path, (path, oldPath) => {
+
+    if(path.indexOf("/question") < 0) return
+
+    const index = parseInt(route.params.id)
+    
+    let errFlag = false;
+    let errSite = false;
+
+    if(isNaN(index)) {
+        errFlag = true
+    } else {
+
+        if(index < 0 || index >= store.questionCount) {
+            errFlag = true
+        } else if(index !== store.questionIndex) {
+            errSite = true
+        }
+    }
+
+    if(errFlag) {
+        router.push('/notfound');
+    } else if(errSite) {
+        router.push('/error');
+    }
+
+    selected.value = null
+    isSubmitted.value = false
+    question.value = store.getQuestion(index)
+    isLastQuestion.value = index === store.questionCount - 1
+    
+})
 </script>
 
 <template>
@@ -204,7 +186,6 @@ export default {
 .error {
     color: var(--color-text-red);
 }
-
 
 @media (max-width: 400px) {
   .action {
