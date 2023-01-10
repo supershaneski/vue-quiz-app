@@ -1,32 +1,27 @@
 <script setup>
+import { onMounted } from "vue";
+import { useRouter } from "vue-router"
 import { useCounterStore } from "../stores/counter";
-</script>
 
-<script>
-export default {
-    data() {
-        const store = useCounterStore()
+const store = useCounterStore()
+const router = useRouter()
 
-        return {
-            store,
-        }
-    },
-    mounted() {
-        
-        this.store.resetQuiz()
+function startQuiz() {
 
-    },
-    methods: {
-        startQuiz() {
+    store.resetScore()
+    store.increment()
+    store.setQuestionIndex(0)
 
-            this.store.resetScore()
-            this.store.increment()
-            this.store.setQuestionIndex(0)
-            
-            this.$router.push('/question/0')
-        }
-    }
+    router.push('/question/0')
+
 }
+
+onMounted(() => {
+
+    store.resetQuiz()
+
+})
+
 </script>
 
 <template>
