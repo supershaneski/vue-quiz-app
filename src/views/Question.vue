@@ -1,5 +1,4 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
 import { useCounterStore } from "../stores/counter";
 </script>
 
@@ -18,30 +17,31 @@ export default {
         
         let errFlag = false;
         let errSite = false;
-
-        if(isNaN(index)) {
-            errFlag = true
+        
+        const endFlag = store.endGame
+        if(endFlag) {
+            errSite = true
         } else {
 
-            if(index < 0 || index >= store.questionCount) {
+            if(isNaN(index)) {
                 errFlag = true
-            } else if(index !== store.questionIndex) {
-                errSite = true
-            }
-        }
+            } else {
 
-        console.log("---aaa---")
+                if(index < 0 || index >= store.questionCount) {
+                    errFlag = true
+                } else if(index !== store.questionIndex) {
+                    errSite = true
+                }
+            }
+
+        }
 
         if(errFlag) {
             this.$router.push('/notfound')
-            //return {}
         } else if(errSite) {
             this.$router.push('/error')
-            //return {}
         }
 
-        console.log("---bbb---", `count: ${store.count}`)
-        
         const isLastQuestion = index === store.questionCount - 1
 
         const questionData = store.getQuestion(index)
@@ -57,8 +57,6 @@ export default {
     watch: {
         $route({ path }) {
 
-            console.log("watch:question", path)
-            
             if(path.indexOf("/question") < 0) return
 
             const index = parseInt(this.$route.params.id)
@@ -85,8 +83,6 @@ export default {
 
             const questionData = this.store.getQuestion(index)
 
-            //console.log("watch:store-count", index, this.store.questionCount)
-
             const isLastQuestion = index === this.store.questionCount - 1
 
             this.selected = null
@@ -98,14 +94,6 @@ export default {
 
         }
     },
-    /*mounted() {
-
-        const index = parseInt(this.$route.params.id)
-        const question = this.store.getQuestion(index)
-
-        console.log(question)
-
-    },*/
     methods: {
         gotoNextQuestion() {
             
@@ -114,13 +102,19 @@ export default {
             this.$router.push(`/question/${nextid}`)
         },
         gotoScore() {
+
+            this.store.endGame = true
+
             this.$router.push('/score')
         },
-        gotoHome() {
+        quitQuiz() {
+
+            this.store.resetQuiz()
+
             this.$router.push('/')
+
         },
         selectAnswer(n) {
-            //console.log("question:select", n)
             this.selected = n
         },
         submitAnswer() {
@@ -140,15 +134,6 @@ export default {
         }
     }
 }
-
-/*
-<li v-for="ans in question.choices" :key="ans.id">
-                <input :disabled="isSubmitted" type="radio" :id="ans.id" :value="ans.id" v-model="selected" />
-                <label :for="ans.id">{{ans.text}}</label>
-                <span v-if="isSubmitted && selected === ans.id && question.answer === ans.id" class="correct">&#10003;</span>
-                <span v-if="isSubmitted && selected === ans.id && question.answer !== ans.id" class="wrong">&#10007;</span>
-            </li>
-*/
 </script>
 
 <template>
@@ -170,7 +155,7 @@ export default {
                 />
             </ul>
             <div class="action">
-                <button class="error" @click="gotoHome">Quit</button>
+                <button class="error" @click="quitQuiz">Quit</button>
                 <div class="subaction">
                     <button class="button" :disabled="isSubmitted || selected === null" @click="submitAnswer">Submit Answer</button>
                     <button class="button" v-if="!isLastQuestion" :disabled="!isSubmitted" @click="gotoNextQuestion">Next Question</button>

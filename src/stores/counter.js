@@ -14,9 +14,7 @@ export const useCounterStore = defineStore("counter", () => {
   if(savedData) {
 
     const rawData = JSON.parse(savedData)
-
-    //console.log("rawdata", rawData)
-
+    
     defCount = rawData.hasOwnProperty('count') ? parseInt(rawData.count) : defCount
     defQuestionIndex = rawData.hasOwnProperty('questionIndex') ? parseInt(rawData.questionIndex) : defQuestionIndex
     defScore = rawData.hasOwnProperty('score') ? parseInt(rawData.score) : defScore
@@ -26,7 +24,7 @@ export const useCounterStore = defineStore("counter", () => {
   let questionItems = quizData.items
   shuffle(questionItems)
 
-  questionItems = questionItems.map((qi, i) => {
+  questionItems = questionItems.filter((qi, i) => i < 10).map((qi, i) => {
 
     let answers = [...qi.choices]
     shuffle(answers)
@@ -38,20 +36,23 @@ export const useCounterStore = defineStore("counter", () => {
     }
   })
 
-  //console.log(questionItems)
-  //const count = ref(0);
-  
   const count = ref(defCount);
-
   const questions = ref(questionItems)
-
   const questionIndex = ref(defQuestionIndex)
-
   const questionCount = ref(questionItems.length)
-
   const score = ref(defScore)
+  const endGame = ref(false)
 
   const doubleCount = computed(() => count.value * 2);
+
+  function resetQuiz() {
+
+    questionIndex.value = -1
+    score.value = 0
+    
+    localStorage.setItem("vue-app", JSON.stringify({ score: 0, count: count.value, questionIndex: -1 }))
+
+  }
 
   function resetQuestionIndex() {
 
@@ -84,8 +85,6 @@ export const useCounterStore = defineStore("counter", () => {
     
     count.value++;
 
-    //console.log("count.value", count.value)
-
     localStorage.setItem("vue-app", JSON.stringify({ score: score.value, count: count.value, questionIndex: questionIndex.value }))
 
   }
@@ -102,5 +101,5 @@ export const useCounterStore = defineStore("counter", () => {
 
   }
 
-  return { score, questions, questionCount, questionIndex, resetScore, incrementScore, getQuestion, resetQuestionIndex, setQuestionIndex, count, doubleCount, increment };
+  return { endGame, score, questions, questionCount, questionIndex, resetQuiz, resetScore, incrementScore, getQuestion, resetQuestionIndex, setQuestionIndex, count, doubleCount, increment };
 });

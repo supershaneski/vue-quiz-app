@@ -4,18 +4,26 @@ import { useCounterStore } from "../stores/counter";
 
 <script>
 export default {
+    data() {
+        const store = useCounterStore()
+
+        return {
+            store,
+        }
+    },
+    mounted() {
+        
+        this.store.resetQuiz()
+
+    },
     methods: {
-        gotoScore() {
+        startQuiz() {
 
-            const store = useCounterStore()
-
-            store.resetScore()
-            store.increment()
-            store.setQuestionIndex(0)
-
-            setTimeout(() => {
-                this.$router.push('/question/0')
-            }, 400)
+            this.store.resetScore()
+            this.store.increment()
+            this.store.setQuestionIndex(0)
+            
+            this.$router.push('/question/0')
         }
     }
 }
@@ -23,11 +31,7 @@ export default {
 
 <template>
     <div class="container">
-      <button class="button" @click="gotoScore">Start&nbsp;<img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-    />&nbsp;Quiz</button>
+      <button class="button" @click="startQuiz">Start Quiz</button>
     </div>
 </template>
 
@@ -42,13 +46,5 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.logo {
-    width: 1rem;
-    height: 1rem;
-    transition: transform 0.3s ease-in;
-}
-.button:hover .logo {
-    transform: rotateZ(180deg);
 }
 </style>

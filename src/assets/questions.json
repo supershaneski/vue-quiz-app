@@ -109,6 +109,61 @@
                 { "id": 2, "text": "Rubicon" },
                 { "id": 3, "text": "Nile" }
             ]
+        },
+        { 
+            "id": 10, 
+            "text": "What is the name of the first animal launched into orbit in space?",
+            "answer": 2,
+            "choices": [
+                { "id": 0, "text": "Yuri" },
+                { "id": 1, "text": "Hachiko" },
+                { "id": 2, "text": "Laika" },
+                { "id": 3, "text": "Able" }
+            ]
+        },
+        { 
+            "id": 11, 
+            "text": "Who is the Mongol emperor that founded the Yuan dynasty of China?",
+            "answer": 3,
+            "choices": [
+                { "id": 0, "text": "Mongke Khan" },
+                { "id": 1, "text": "Genghis Khan" },
+                { "id": 2, "text": "Chaka Khan" },
+                { "id": 3, "text": "Kublai Khan" }
+            ]
+        },
+        { 
+            "id": 12, 
+            "text": "Who is the first emperor of a unified China?",
+            "answer": 0,
+            "choices": [
+                { "id": 0, "text": "Qin Shi Huang" },
+                { "id": 1, "text": "Emperor Gao" },
+                { "id": 2, "text": "Emperor Xiantian" },
+                { "id": 3, "text": "Emperor Chengtian" }
+            ]
+        },
+        { 
+            "id": 13, 
+            "text": "Who is the British physicist that discovered the electron?",
+            "answer": 0,
+            "choices": [
+                { "id": 0, "text": "J.J. Thompson" },
+                { "id": 1, "text": "H.A. Lorentz" },
+                { "id": 2, "text": "Ernest Rutherford" },
+                { "id": 3, "text": "Niels Bohr" }
+            ]
+        },
+        { 
+            "id": 14, 
+            "text": "What is the capital of Denmark?",
+            "answer": 0,
+            "choices": [
+                { "id": 0, "text": "Copenhagen" },
+                { "id": 1, "text": "Amsterdam" },
+                { "id": 2, "text": "Brussels" },
+                { "id": 3, "text": "Stockholm" }
+            ]
         }
     ]
 }
