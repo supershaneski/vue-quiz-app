@@ -1,5 +1,9 @@
 <script setup>
-defineProps({
+import { ref, onMounted, computed, watch, defineEmits, defineProps } from "vue";
+
+const emit = defineEmits(['select'])
+
+const props = defineProps({
     text: {
         type: String,
         required: true,
@@ -20,19 +24,15 @@ defineProps({
         type: Boolean,
     }
 });
-</script>
 
-<script>
-export default {
-    methods: {
-        selectItem() {
+function selectItem() {
+    
+    if(props.disabled) return;
 
-            if(this.disabled) return;
+    emit('select', props.id)
 
-            this.$emit('select', this.id)
-        }
-    }
 }
+
 </script>
 
 <template>
