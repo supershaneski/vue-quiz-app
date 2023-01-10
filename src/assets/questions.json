@@ -164,6 +164,28 @@
                 { "id": 2, "text": "Brussels" },
                 { "id": 3, "text": "Stockholm" }
             ]
+        },
+        { 
+            "id": 15, 
+            "text": "What do you call the area comprising of 27 European countries that abolished all border controls at their mutual borders?",
+            "answer": 1,
+            "choices": [
+                { "id": 0, "text": "Szechuan Area" },
+                { "id": 1, "text": "Schengen Area" },
+                { "id": 2, "text": "Seychelles Area" },
+                { "id": 3, "text": "Shenzhen Area" }
+            ]
+        },
+        { 
+            "id": 16, 
+            "text": "Who is the former NBA player that is regarded as the greatest point guard of all-time?",
+            "answer": 1,
+            "choices": [
+                { "id": 0, "text": "Michael Jordan" },
+                { "id": 1, "text": "Magic Johnson" },
+                { "id": 2, "text": "Michael Jackson" },
+                { "id": 3, "text": "LeBron James" }
+            ]
         }
     ]
 }
