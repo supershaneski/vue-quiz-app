@@ -1,5 +1,7 @@
 # vue-quiz-app
 
+![Quiz App](./docs/screenshot.png)
+
 This is a sample quiz application built using [Vue 3](https://vuejs.org/guide/introduction.html) in [Vite](https://vitejs.dev/guide/). It mainly uses `Composition API` to implement `route views` and `components`.
 
 
@@ -25,12 +27,10 @@ But since this is more of a refresher for `Vue`, using as many standard modules 
 
 I mainly reused the generated code, files and styling from the build setup using `Vite` such that my `Pinia` store is still named as `counter.js`.
 
+
 ## The App
 
-![Quiz App](./docs/screenshot.png "Quiz App")
-
 > This is a work in progress...
-
 
 You can edit the questions found in `/assets/questions.json` for your own quiz data.
 Although you can add as many questions in the file, only 10 questions are shown each time.
