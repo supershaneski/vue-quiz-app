@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, watch, defineEmits, defineProps } from "vue";
+import { ref, onMounted, computed, watch, defineProps } from "vue";
 
 const emit = defineEmits(['select'])
 
