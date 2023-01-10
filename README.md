@@ -40,6 +40,13 @@ To do this, I will need to store the `id` of `shuffled questions` and `current d
 Every time the page is loaded, I will then check this info is there is a need to reshuffle the questions or not.
 
 
+## Options API vs Composition API
+
+It is not difficult to convert one to the other. 
+It also seems that I can combine both (is it?).
+The main problem I encounter trying to convert my code to `Composition API` is that I need to scour the internet outside the documentation itself in order to fully implement `Composition API` for components and router.
+
+
 # Setup
 
 Clone the repository and install the dependencies
