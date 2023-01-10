@@ -9,7 +9,7 @@ This is purely a coding exercise meant to refresh my knowledge of `Vue`.
 
 From the last time I tried `Vue`, there seems to be significant changes in how things are done that [made some developers upset](https://www.reddit.com/r/vuejs/comments/pmpmot/rant_how_vue_3_drove_me_away/).
 
-Browsing through [my old Vue projects from 2 years ago](https://github.com/supershaneski?tab=repositories&q=vue&type=&language=&sort=), I can hardly recognize the code anyway so it means I can start using `Vue 3` without any restraints.
+Browsing through [my old Vue projects from 2 years ago](https://github.com/supershaneski?tab=repositories&q=vue&type=&language=&sort=), there are many things that I already forgot so that means I can start using `Vue 3` without any apprehension.
 
 
 # Development
