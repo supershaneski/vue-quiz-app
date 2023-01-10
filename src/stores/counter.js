@@ -49,6 +49,7 @@ export const useCounterStore = defineStore("counter", () => {
 
     questionIndex.value = -1
     score.value = 0
+    endGame.value = false
     
     localStorage.setItem("vue-app", JSON.stringify({ score: 0, count: count.value, questionIndex: -1 }))
 

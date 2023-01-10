@@ -23,15 +23,6 @@ defineProps({
 </script>
 
 <script>
-/*
-<li v-for="ans in question.choices" :key="ans.id">
-    <input :disabled="isSubmitted" type="radio" :id="ans.id" :value="ans.id" v-model="selected" />
-    <label :for="ans.id">{{ans.text}}</label>
-    <span v-if="isSubmitted && selected === ans.id && question.answer === ans.id" class="correct">&#10003;</span>
-    <span v-if="isSubmitted && selected === ans.id && question.answer !== ans.id" class="wrong">&#10007;</span>
-</li>
-*/
-
 export default {
     methods: {
         selectItem() {

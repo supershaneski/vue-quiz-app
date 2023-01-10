@@ -130,7 +130,7 @@ export default {
     },
     computed: {
         questionNumber() {
-            return [parseInt(this.$route.params.id) + 1, this.store.questionCount].join(' / ')
+            return [parseInt(this.$route.params.id) + 1, this.store.questionCount].join(' of ')
         }
     }
 }
@@ -203,5 +203,20 @@ export default {
 }
 .error {
     color: var(--color-text-red);
+}
+
+
+@media (max-width: 400px) {
+  .action {
+    flex-direction: column-reverse;
+  }
+  .button {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .error {
+    margin-top: 1rem;
+  }
 }
 </style>
