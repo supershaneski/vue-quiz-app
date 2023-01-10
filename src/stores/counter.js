@@ -9,6 +9,7 @@ export const useCounterStore = defineStore("counter", () => {
   let defCount = 0
   let defQuestionIndex = -1
   let defScore = 0
+  let defEndGame = false
 
   let refDate = ''
   let defQuestions = ''
@@ -21,6 +22,8 @@ export const useCounterStore = defineStore("counter", () => {
     refDate = rawData.hasOwnProperty('date') ? rawData.date : ''
     defQuestions = rawData.hasOwnProperty('questions') ? rawData.questions : ''
     
+    defEndGame = rawData.hasOwnProperty('endGame') ? Boolean(rawData.endGame) : defEndGame
+
     defCount = rawData.hasOwnProperty('count') ? parseInt(rawData.count) : defCount
     defQuestionIndex = rawData.hasOwnProperty('questionIndex') ? parseInt(rawData.questionIndex) : defQuestionIndex
     defScore = rawData.hasOwnProperty('score') ? parseInt(rawData.score) : defScore
@@ -74,10 +77,20 @@ export const useCounterStore = defineStore("counter", () => {
   const questionIndex = ref(defQuestionIndex)
   const questionCount = ref(questionItems.length)
   const score = ref(defScore)
-  const endGame = ref(false)
+  const endGame = ref(defEndGame)
   const questionList = ref(defQuestions)
 
   const doubleCount = computed(() => count.value * 2);
+
+  function setEndGame() {
+
+    endGame.value = true
+
+    const today = getToday()
+    
+    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: questionIndex.value }))
+    
+  }
 
   function resetQuiz() {
 
@@ -87,7 +100,7 @@ export const useCounterStore = defineStore("counter", () => {
 
     const today = getToday()
     
-    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: 0, count: count.value, questionIndex: -1 }))
+    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: questionList.value, date: today, score: 0, count: count.value, questionIndex: -1 }))
 
   }
 
@@ -97,7 +110,7 @@ export const useCounterStore = defineStore("counter", () => {
 
     const today = getToday()
 
-    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: -1 }))
+    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: -1 }))
 
   }
 
@@ -112,7 +125,7 @@ export const useCounterStore = defineStore("counter", () => {
 
     const today = getToday()
 
-    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: n }))
+    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: n }))
 
   }
 
@@ -128,7 +141,7 @@ export const useCounterStore = defineStore("counter", () => {
 
     const today = getToday()
 
-    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: questionIndex.value }))
+    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: questionIndex.value }))
 
   }
 
@@ -142,9 +155,9 @@ export const useCounterStore = defineStore("counter", () => {
 
     const today = getToday()
 
-    localStorage.setItem("vue-app", JSON.stringify({ questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: questionIndex.value }))
+    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: questionList.value, date: today, score: score.value, count: count.value, questionIndex: questionIndex.value }))
 
   }
 
-  return { endGame, score, questions, questionCount, questionIndex, resetQuiz, resetScore, incrementScore, getQuestion, resetQuestionIndex, setQuestionIndex, count, doubleCount, increment };
+  return { endGame, score, questions, questionCount, questionIndex, setEndGame, resetQuiz, resetScore, incrementScore, getQuestion, resetQuestionIndex, setQuestionIndex, count, doubleCount, increment };
 });

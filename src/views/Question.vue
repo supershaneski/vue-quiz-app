@@ -103,7 +103,7 @@ export default {
         },
         gotoScore() {
 
-            this.store.endGame = true
+            this.store.setEndGame()
 
             this.$router.push('/score')
         },
