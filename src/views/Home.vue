@@ -26,6 +26,8 @@ onMounted(async () => {
 
     store.resetQuiz()
 
+    loading.value = true
+
     getRemoteData().then(data => {
         
         let raw_questions = data.results ? data.results : null
@@ -58,8 +60,14 @@ onMounted(async () => {
 
         }
 
+        loading.value = false
+
     }).catch(err => {
         console.log(err)
+
+        loading.value = false
+        error.value = true
+
     })
 
 })
@@ -67,7 +75,11 @@ onMounted(async () => {
 
 <template>
     <div class="container">
-      <StarButton @click="startQuiz">Start Quiz</StarButton>
+        <div v-if="!loading && !error">
+            <StarButton @click="startQuiz">Start Quiz</StarButton>
+        </div>
+        <p v-if="loading">Fetching trivia questions....</p>
+        <p v-if="error">Oops, something went wrong!</p>
     </div>
 </template>
 
