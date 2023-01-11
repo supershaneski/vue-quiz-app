@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 
-const emit = defineEmits(['select'])
+const emit = defineEmits(['click'])
 
 const show = ref(true)
 
