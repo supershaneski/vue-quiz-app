@@ -25,6 +25,8 @@ const getPageTitle = computed(() => {
     return "Tough Luck! 😢"
   } else if(score.value > 0 && score.value < 5) {
     return "You Can Do Better! 🙂"
+  } else if(score.value === 8 || score.value === 9) {
+    return "Almost Perfect Score! 😂"
   } else if(score.value === 10) {
     return "Perfect Score! 🎉"
   } else {
