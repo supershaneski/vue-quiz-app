@@ -4,6 +4,8 @@ import { useRouter } from "vue-router";
 import { useCounterStore } from "../stores/counter";
 import { getRemoteData, shuffle } from "../lib/utils";
 
+import StarButton from '../components/StartButton.vue'
+
 const store = useCounterStore()
 const router = useRouter()
 
@@ -61,12 +63,11 @@ onMounted(async () => {
     })
 
 })
-
 </script>
 
 <template>
     <div class="container">
-      <button class="button" @click="startQuiz">Start Quiz</button>
+      <StarButton @click="startQuiz">Start Quiz</StarButton>
     </div>
 </template>
 

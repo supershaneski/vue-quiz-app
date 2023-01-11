@@ -22,13 +22,13 @@ const count = ref(errFlag ? null : store.questionCount)
 const getPageTitle = computed(() => {
   
   if(score.value === 0) {
-    return "Tough Luck!"
+    return "Tough Luck! 😢"
   } else if(score.value > 0 && score.value < 5) {
-    return "You Can Do Better!"
+    return "You Can Do Better! 🙂"
   } else if(score.value === 10) {
-    return "Perfect Score!"
+    return "Perfect Score! 🎉"
   } else {
-    return "Nice Score!"
+    return "Nice Score! 😄"
   }
 
 })
