@@ -3,7 +3,7 @@
 ![Quiz App](./docs/screenshot.png)
 
 This is a sample quiz application built using [Vue 3](https://vuejs.org/guide/introduction.html) in [Vite](https://vitejs.dev/guide/). It mainly uses `Composition API` to implement `route views` and `components`.
-
+Trivia questions are now provided by [Open Trivia DB](https://opentdb.com/api_config.php).
 
 # Objective
 
@@ -32,13 +32,15 @@ I mainly reused the generated code, files and styling from the build setup using
 
 > This is a work in progress...
 
-You can edit the questions found in `/assets/questions.json` for your own quiz data.
-Although you can add as many questions in the file, only 10 questions are shown each time.
+~~You can edit the questions found in `/assets/questions.json` for your own quiz data.
+Although you can add as many questions in the file, only 10 questions are shown each time.~~
 
-Currently, the questions are `shuffled` when the app is loaded and the store initialized.
-I am thinking of only doing this process once per day just like how `Wordle` only use one specific word per day.
-To do this, I will need to store the `id` of `shuffled questions` and `current date` in `localStorage`.
-Every time the page is loaded, I will then check this info is there is a need to reshuffle the questions or not.
+~~Currently, the questions are `shuffled` when the app is loaded and the store initialized.
+I am thinking of only doing this process once per day just like how `Wordle` only use one specific word per day.~~
+~~To do this, I will need to store the `id` of `shuffled questions` and `current date` in `localStorage`.
+Every time the page is loaded, I will then check this info is there is a need to reshuffle the questions or not.~~
+
+I am now fetching the quiz data from [Open Trivia DB](https://opentdb.com/api_config.php).
 
 
 ## Options API vs Composition API
