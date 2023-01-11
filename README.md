@@ -3,7 +3,7 @@
 ![Quiz App](./docs/screenshot.png)
 
 This is a sample quiz application built using [Vue 3](https://vuejs.org/guide/introduction.html) in [Vite](https://vitejs.dev/guide/). It mainly uses `Composition API` to implement `route views` and `components`.
-Trivia questions are now generated using [Open Trivia DB API](https://opentdb.com/api_config.php).
+Trivia questions are now generated using [Open Trivia DB API](https://opentdb.com/api_config.php)(OpenTDB).
 
 # Objective
 
