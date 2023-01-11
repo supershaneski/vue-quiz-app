@@ -2,7 +2,9 @@
 import { ref, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router"
 import { useCounterStore } from "../stores/counter";
+
 import ListItem from '../components/ListItem.vue';
+import Modal from '../components/Dialog.vue';
 
 const store = useCounterStore()
 const router = useRouter()
@@ -42,6 +44,16 @@ const isLastQuestion = ref(errFlag || errSite ? false : index === store.question
 const selected = ref(null)
 const isSubmitted = ref(false)
 
+const openDialog = ref(false);
+
+function showDialog() {
+    openDialog.value = true
+}
+
+function closeDialog() {
+    openDialog.value = false
+}
+
 function gotoNextQuestion() {
             
     const nextid = parseInt(route.params.id) + 1
@@ -59,8 +71,12 @@ function gotoScore() {
 
 function quitQuiz() {
 
-    store.resetQuiz()
-    router.push('/')
+    openDialog.value = false
+
+    setTimeout(() => {
+        store.resetQuiz()
+        router.push('/')
+    }, 200)
 
 }
 
@@ -119,36 +135,75 @@ watch(() => route.path, (path, oldPath) => {
 </script>
 
 <template>
-    <div v-if="question" class="container">
-        <div class="question">
-            <h4 class="title">Question {{ questionNumber }}</h4>
-            <p class="text">
-            {{ question.text }}
-            </p>
-            <ul class="answers">
-                <ListItem v-for="ans in question.choices" 
-                :key="ans.id" 
-                :id="ans.id" 
-                :text="ans.text" 
-                :disabled="isSubmitted" 
-                :selected="ans.id === selected"
-                :is-correct="isSubmitted && selected === ans.id ? question.answer === ans.id : null"
-                @select="selectAnswer"
-                />
-            </ul>
-            <div class="action">
-                <button class="error" @click="quitQuiz">Quit</button>
-                <div class="subaction">
-                    <button class="button" :disabled="isSubmitted || selected === null" @click="submitAnswer">Submit Answer</button>
-                    <button class="button" v-if="!isLastQuestion" :disabled="!isSubmitted" @click="gotoNextQuestion">Next Question</button>
-                    <button class="button" v-if="isLastQuestion" :disabled="!isSubmitted" @click="gotoScore">View Score</button>
+    <div class="wrapper">
+        <div v-if="question" class="container">
+            <div class="question">
+                <h4 class="title">Question {{ questionNumber }}</h4>
+                <p class="text">
+                {{ question.text }}
+                </p>
+                <ul class="answers">
+                    <ListItem v-for="ans in question.choices" 
+                    :key="ans.id" 
+                    :id="ans.id" 
+                    :text="ans.text" 
+                    :disabled="isSubmitted" 
+                    :selected="ans.id === selected"
+                    :is-correct="isSubmitted && selected === ans.id ? question.answer === ans.id : null"
+                    @select="selectAnswer"
+                    />
+                </ul>
+                <div class="action">
+                    <button class="error" @click="showDialog">Quit</button>
+                    <div class="subaction">
+                        <button class="button" :disabled="isSubmitted || selected === null" @click="submitAnswer">Submit Answer</button>
+                        <button class="button" v-if="!isLastQuestion" :disabled="!isSubmitted" @click="gotoNextQuestion">Next Question</button>
+                        <button class="button" v-if="isLastQuestion" :disabled="!isSubmitted" @click="gotoScore">View Score</button>
+                    </div>
                 </div>
             </div>
         </div>
+        <Teleport to="body">
+            <modal :open="openDialog" @close="closeDialog">
+                <template #header>
+                    <h4 class="dialog-title">Quit Quiz</h4>
+                </template>
+                <template #body>
+                    <p class="dialog-text">Are you sure you want to quit?</p>
+                </template>
+                <template #footer>
+                    <div class="dialog-action">
+                        <button @click="quitQuiz" class="dialog-button">OK</button>
+                        <button @click="closeDialog" class="dialog-button">Cancel</button>
+                    </div>
+                </template>
+            </modal>
+        </Teleport>
     </div>
 </template>
 
 <style scoped>
+.dialog-title {
+    color: var(--color-text-green);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.dialog-text {
+    color: var(--vt-c-black-soft);
+}
+.dialog-action {
+    display: flex;
+    justify-content: flex-end;
+}
+.dialog-button {
+    margin-left: 0.5rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+.wrapper {
+    position: relative;
+    height: 100%;
+}
 .container {
     position: relative;
     height: 100%;
