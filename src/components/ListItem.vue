@@ -37,7 +37,7 @@ function selectItem() {
 
 <template>
     <li class="item" :class="{ selected: selected, correctBorder: isCorrect, wrongBorder: isCorrect === false }" @click="selectItem">
-        <span>{{ text }}</span>
+        <span v-html="text"></span>
         <span v-if="isCorrect === true" class="correct">&#10003;</span>
         <span v-if="isCorrect === false" class="wrong">&#10007;</span>
     </li>

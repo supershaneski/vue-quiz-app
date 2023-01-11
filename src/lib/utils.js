@@ -18,6 +18,8 @@ export function getToday() {
 
 // https://opentdb.com/api_config.php
 export async function getRemoteData() {
-    const response = await fetch("https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple")
+    //https://opentdb.com/api.php?amount=10&type=multiple
+    //https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple
+    const response = await fetch("https://opentdb.com/api.php?amount=10&type=multiple")
     return await response.json()
 }

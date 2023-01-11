@@ -139,6 +139,10 @@ watch(() => route.path, (path, oldPath) => {
         <div v-if="question" class="container">
             <div class="question">
                 <h4 class="title">Question {{ questionNumber }}</h4>
+                <p class="question-header">
+                    <span class="question-category">{{ question.category }}</span>
+                    <span class="question-difficulty">{{ question.difficulty }}</span>
+                </p>
                 <p class="text" v-html="question.text"></p>
                 <ul class="answers">
                     <ListItem v-for="ans in question.choices" 
@@ -181,6 +185,18 @@ watch(() => route.path, (path, oldPath) => {
 </template>
 
 <style scoped>
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+.question-category {
+    font-weight: 600;
+}
+.question-difficulty {
+    font-weight: 600;
+    text-transform: capitalize;
+}
 .dialog-title {
     color: var(--color-text-green);
     font-size: 1.1rem;
@@ -219,7 +235,8 @@ watch(() => route.path, (path, oldPath) => {
     font-weight: 600;
 }
 .text {
-    padding: 1rem 0;
+    /*padding: 1rem 0;*/
+    margin: 0.5rem 0 2rem;
 }
 .answers {
     position: relative;
