@@ -26,8 +26,6 @@ onMounted(async () => {
 
     getRemoteData().then(data => {
         
-        console.log("mount", data)
-
         let raw_questions = data.results ? data.results : null
         if(raw_questions) {
 
