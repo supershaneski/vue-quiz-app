@@ -30,17 +30,19 @@ I mainly reused the generated code, files and styling from the build setup using
 
 ## The App
 
-> This is a work in progress...
-
-~~You can edit the questions found in `/assets/questions.json` for your own quiz data.
-Although you can add as many questions in the file, only 10 questions are shown each time.~~
-
-~~Currently, the questions are `shuffled` when the app is loaded and the store initialized.
-I am thinking of only doing this process once per day just like how `Wordle` only use one specific word per day.~~
-~~To do this, I will need to store the `id` of `shuffled questions` and `current date` in `localStorage`.
-Every time the page is loaded, I will then check this info is there is a need to reshuffle the questions or not.~~
-
 I am now fetching the quiz data from [Open Trivia DB API](https://opentdb.com/api_config.php).
+It is completely free and does not require API key.
+
+You can adjust the number of questions shown by editing the API call's `amount` parameter.
+
+```javascript
+const response = await fetch("https://opentdb.com/api.php?amount=10&type=multiple")
+```
+
+See function `getRemoteData()` from `./lib/utils.js`.
+
+If you want to prepare your own questions, edit `/assets/questions.json` for the quiz data and do not call `getRemoteData()` in `Home.vue`'s `onMounted` lifecycle event.
+However, please note that if you do so, questions are `shuffled` once a day.
 
 
 ## Options API vs Composition API
