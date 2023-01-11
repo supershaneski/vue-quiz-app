@@ -3,7 +3,7 @@
 ![Quiz App](./docs/screenshot.png)
 
 This is a sample quiz application built using [Vue 3](https://vuejs.org/guide/introduction.html) in [Vite](https://vitejs.dev/guide/). It mainly uses `Composition API` to implement `route views` and `components`.
-Trivia questions are now provided by [Open Trivia DB](https://opentdb.com/api_config.php).
+Trivia questions are now generated using [Open Trivia DB API](https://opentdb.com/api_config.php).
 
 # Objective
 
@@ -40,7 +40,7 @@ I am thinking of only doing this process once per day just like how `Wordle` onl
 ~~To do this, I will need to store the `id` of `shuffled questions` and `current date` in `localStorage`.
 Every time the page is loaded, I will then check this info is there is a need to reshuffle the questions or not.~~
 
-I am now fetching the quiz data from [Open Trivia DB](https://opentdb.com/api_config.php).
+I am now fetching the quiz data from [Open Trivia DB API](https://opentdb.com/api_config.php).
 
 
 ## Options API vs Composition API
