@@ -1,10 +1,14 @@
 <script setup>
-import { onMounted } from "vue";
-import { useRouter } from "vue-router"
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { useCounterStore } from "../stores/counter";
+import { getRemoteData, shuffle } from "../lib/utils";
 
 const store = useCounterStore()
 const router = useRouter()
+
+const loading = ref(false)
+const error = ref(false)
 
 function startQuiz() {
 
@@ -16,9 +20,47 @@ function startQuiz() {
 
 }
 
-onMounted(() => {
+onMounted(async () => {
 
     store.resetQuiz()
+
+    getRemoteData().then(data => {
+        
+        console.log("mount", data)
+
+        let raw_questions = data.results ? data.results : null
+        if(raw_questions) {
+
+            raw_questions = raw_questions.map((item, index) => {
+
+                const answers = [item.correct_answer, ...item.incorrect_answers]
+
+                let choices = answers.map((ans, i) => {
+                    return {
+                        id: i,
+                        text: ans,
+                    }
+                })
+
+                shuffle(choices)
+
+                return {
+                    ...item,
+                    answers,
+                    id: index,
+                    text: item.question,
+                    answer: 0,
+                    choices,
+                }
+            })
+
+            store.setQuizData(raw_questions)
+
+        }
+
+    }).catch(err => {
+        console.log(err)
+    })
 
 })
 

@@ -139,9 +139,7 @@ watch(() => route.path, (path, oldPath) => {
         <div v-if="question" class="container">
             <div class="question">
                 <h4 class="title">Question {{ questionNumber }}</h4>
-                <p class="text">
-                {{ question.text }}
-                </p>
+                <p class="text" v-html="question.text"></p>
                 <ul class="answers">
                     <ListItem v-for="ans in question.choices" 
                     :key="ans.id" 

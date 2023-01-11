@@ -82,6 +82,19 @@ export const useCounterStore = defineStore("counter", () => {
 
   const doubleCount = computed(() => count.value * 2);
 
+  function setQuizData(data) {
+
+    questions.value = data
+    questionCount.value = data.length
+
+    const list = data.reduce((d, curvalue) => {
+      return d.length > 0 ? [d, curvalue.id].join(',') : String(curvalue.id)
+    }, "")
+
+    questionList.value = list
+
+  }
+
   function setEndGame() {
 
     endGame.value = true
@@ -159,5 +172,5 @@ export const useCounterStore = defineStore("counter", () => {
 
   }
 
-  return { endGame, score, questions, questionCount, questionIndex, setEndGame, resetQuiz, resetScore, incrementScore, getQuestion, resetQuestionIndex, setQuestionIndex, count, doubleCount, increment };
+  return { endGame, score, questions, questionCount, questionIndex, setQuizData, setEndGame, resetQuiz, resetScore, incrementScore, getQuestion, resetQuestionIndex, setQuestionIndex, count, doubleCount, increment };
 });

@@ -15,3 +15,9 @@ export function shuffle(a) {
 export function getToday() {
     return ((new Date()).toISOString()).split('T')[0]
 }
+
+// https://opentdb.com/api_config.php
+export async function getRemoteData() {
+    const response = await fetch("https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple")
+    return await response.json()
+}
