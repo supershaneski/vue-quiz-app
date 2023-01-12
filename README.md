@@ -41,7 +41,7 @@ const response = await fetch("https://opentdb.com/api.php?amount=10&type=multipl
 
 See function `getRemoteData()` from `./lib/utils.js`.
 
-If you want to prepare your own questions, edit `/assets/questions.json` for the quiz data and do not call `getRemoteData()` in `Home.vue`'s `onMounted` lifecycle event.
+If you want to prepare your own questions, edit `/assets/questions.json` for the quiz data and set the variable `VITE_APP_USE_LOCALDATA` from the `.env` file to `true`.
 However, please note that if you do so, questions are `shuffled` once a day.
 
 

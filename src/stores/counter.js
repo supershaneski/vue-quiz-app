@@ -34,7 +34,7 @@ export const useCounterStore = defineStore("counter", () => {
 
   const today = getToday()
 
-  if(refDate.length === 0 || defQuestions.length === 0 || (refDate.length > 0 && today > refDate)) {
+  if(import.meta.env.VITE_APP_SHUFFLE_ALWAYS === "true" || refDate.length === 0 || defQuestions.length === 0 || (refDate.length > 0 && today > refDate)) {
 
     shuffle(questionItems)
 
@@ -73,6 +73,7 @@ export const useCounterStore = defineStore("counter", () => {
   }
   
   const count = ref(defCount);
+  const allQuestions = ref(quizData.items)
   const questions = ref(questionItems)
   const questionIndex = ref(defQuestionIndex)
   const questionCount = ref(questionItems.length)
@@ -107,13 +108,41 @@ export const useCounterStore = defineStore("counter", () => {
 
   function resetQuiz() {
 
+    let list = questionList.value
+
+    if(import.meta.env.VITE_APP_SHUFFLE_ALWAYS === "true" && import.meta.env.VITE_APP_USE_LOCALDATA === "true") {
+
+      let items = allQuestions.value
+
+      shuffle(items)
+
+      items = items.filter((qi, i) => i < 10).map((qi, i) => {
+
+        let answers = [...qi.choices]
+        shuffle(answers)
+  
+        return {
+          ...qi,
+          choices: answers,
+          index: i,
+        }
+      })
+
+      list = items.reduce((d, curvalue) => {
+        return d.length > 0 ? [d, curvalue.id].join(',') : String(curvalue.id)
+      }, "")
+
+      questions.value = items
+
+    }
+    
     questionIndex.value = -1
     score.value = 0
     endGame.value = false
 
     const today = getToday()
     
-    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: questionList.value, date: today, score: 0, count: count.value, questionIndex: -1 }))
+    localStorage.setItem("vue-app", JSON.stringify({ endGame: endGame.value, questions: list, date: today, score: 0, count: count.value, questionIndex: -1 }))
 
   }
 
