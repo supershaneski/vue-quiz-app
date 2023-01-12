@@ -293,6 +293,9 @@ watch(() => route.path, (path, oldPath) => {
   .error {
     margin-top: 1rem;
   }
+  .question-content {
+    height: 48vh;
+  }
 }
 
 /* transition */
