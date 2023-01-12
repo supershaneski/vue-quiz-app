@@ -45,6 +45,7 @@ const selected = ref(null)
 const isSubmitted = ref(false)
 
 const openDialog = ref(false);
+const nextFlag = ref(true);
 
 function showDialog() {
     openDialog.value = true
@@ -55,6 +56,8 @@ function closeDialog() {
 }
 
 function gotoNextQuestion() {
+
+    nextFlag.value = false
             
     const nextid = parseInt(route.params.id) + 1
     store.setQuestionIndex(nextid)
@@ -131,6 +134,12 @@ watch(() => route.path, (path, oldPath) => {
     question.value = store.getQuestion(index)
     isLastQuestion.value = index === store.questionCount - 1
     
+    if(!errFlag || !errSite) {
+        setTimeout(() => {
+            nextFlag.value = true
+        }, 500)
+    }
+
 })
 </script>
 
@@ -138,23 +147,29 @@ watch(() => route.path, (path, oldPath) => {
     <div class="wrapper">
         <div v-if="question" class="container">
             <div class="question">
-                <h4 class="title">Question {{ questionNumber }}</h4>
-                <p class="question-header">
-                    <span class="question-category">{{ question.category }}</span>
-                    <span class="question-difficulty">{{ question.difficulty }}</span>
-                </p>
-                <p class="text" v-html="question.text"></p>
-                <ul class="answers">
-                    <ListItem v-for="ans in question.choices" 
-                    :key="ans.id" 
-                    :id="ans.id" 
-                    :text="ans.text" 
-                    :disabled="isSubmitted" 
-                    :selected="ans.id === selected"
-                    :is-correct="isSubmitted && selected === ans.id ? question.answer === ans.id : null"
-                    @select="selectAnswer"
-                    />
-                </ul>
+                <div class="question-content">
+                    <Transition name="question-slide">
+                        <div v-show="nextFlag" class="question-main">
+                            <h4 class="title">Question {{ questionNumber }}</h4>
+                            <p class="question-header">
+                                <span class="question-category">{{ question.category }}</span>
+                                <span class="question-difficulty">{{ question.difficulty }}</span>
+                            </p>
+                            <p class="text" v-html="question.text"></p>
+                            <ul class="answers">
+                                <ListItem v-for="ans in question.choices" 
+                                :key="ans.id" 
+                                :id="ans.id" 
+                                :text="ans.text" 
+                                :disabled="isSubmitted" 
+                                :selected="ans.id === selected"
+                                :is-correct="isSubmitted && selected === ans.id ? question.answer === ans.id : null"
+                                @select="selectAnswer"
+                                />
+                            </ul>
+                        </div>
+                    </Transition>
+                </div>
                 <div class="action">
                     <button class="error" @click="showDialog">Quit</button>
                     <div class="subaction">
@@ -185,6 +200,14 @@ watch(() => route.path, (path, oldPath) => {
 </template>
 
 <style scoped>
+.question-content {
+    position: relative;
+    height: 42vh;
+    overflow-x: hidden;
+}
+.question-main {
+    position: relative;
+}
 .question-header {
     display: flex;
     justify-content: space-between;
@@ -226,6 +249,7 @@ watch(() => route.path, (path, oldPath) => {
     align-items: center;
 }
 .question {
+    position: relative;
     width: 100%;
     max-width: 500px;
     padding: 2rem 1rem;
@@ -269,5 +293,21 @@ watch(() => route.path, (path, oldPath) => {
   .error {
     margin-top: 1rem;
   }
+}
+
+/* transition */
+.question-slide-enter-active {
+  transition: all 0.45s ease-out;
+}
+
+.question-slide-leave-active {
+  /*transition: all 0.9s cubic-bezier(1, 0.5, 0.8, 1);*/
+  transition: all 0.45s ease-out;
+}
+
+.question-slide-enter-from,
+.question-slide-leave-to {
+  transform: translateX(50%);
+  opacity: 0;
 }
 </style>

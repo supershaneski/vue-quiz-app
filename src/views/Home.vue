@@ -26,6 +26,8 @@ onMounted(async () => {
 
     store.resetQuiz()
 
+    if(import.meta.env.VITE_APP_USE_LOCALDATA === "true") return
+    
     loading.value = true
 
     getRemoteData().then(data => {
