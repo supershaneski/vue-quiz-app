@@ -41,8 +41,7 @@ const response = await fetch("https://opentdb.com/api.php?amount=10&type=multipl
 
 See function `getRemoteData()` from `./lib/utils.js`.
 
-If you want to prepare your own questions, edit `/assets/questions.json` for the quiz data and set the variable `VITE_APP_USE_LOCALDATA` from the `.env` file to `true`.
-However, please note that if you do so, questions are `shuffled` once a day.
+If you want to prepare your own questions, edit `/assets/questions.json` for the quiz data and set the variable `VITE_APP_USE_LOCALDATA` from the `.env` file to `true`. You can also set `VITE_APP_SHUFFLE_ALWAYS` to `true` if you want to shuffle the questions every time you start the quiz. Otherwise, it will shuffle once a day. However, this only controls the local mode. For remote data, it is always shuffled.
 
 
 ## Options API vs Composition API
